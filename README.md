@@ -88,8 +88,29 @@ source venv/bin/activate  # En Windows: venv\Scripts\activate
 
 ### 3. Instalar Dependencias
 
+**Opción A: Script de instalación automática (Recomendado)**
 ```bash
-pip install -r requirements.txt
+python install.py
+```
+
+**Opción B: Instalación manual por pasos**
+```bash
+# Actualizar pip y herramientas básicas
+pip install --upgrade pip setuptools wheel
+
+# Para Python 3.12, instalar dependencias adicionales
+pip install setuptools-scm
+
+# Instalar dependencias principales
+pip install fastapi uvicorn[standard] pydantic python-multipart
+pip install openai tiktoken
+pip install chromadb sentence-transformers
+pip install pandas numpy jinja2 aiofiles python-dotenv requests
+```
+
+**Opción C: Usando requirements (puede fallar en Python 3.12)**
+```bash
+pip install -r requirements-minimal.txt
 ```
 
 ### 4. Configurar Variables de Entorno

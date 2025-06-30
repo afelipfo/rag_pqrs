@@ -1,0 +1,29 @@
+# Dependencias esenciales mínimas
+setuptools>=68.0.0
+wheel>=0.40.0
+
+# Backend básico
+fastapi
+uvicorn[standard]
+pydantic
+python-multipart
+
+# LLM y AI básico
+openai
+tiktoken
+
+# Vector Database
+chromadb
+sentence-transformers
+
+# Data Processing básico
+pandas
+numpy
+
+# Web templates
+jinja2
+aiofiles
+
+# Utilidades
+python-dotenv
+requests
