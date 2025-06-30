@@ -1,0 +1,311 @@
+{% extends "base.html" %}
+
+{% block title %}{{ app_name }} - Administración{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="display-6">
+                <i class="fas fa-cogs me-3"></i>
+                Panel de Administración
+            </h1>
+            <p class="lead text-muted">Gestión de la base de conocimiento y estadísticas del sistema</p>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="card-title" id="totalDocs">-</h4>
+                            <p class="card-text">Documentos</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-file-alt fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="card-title" id="systemStatus">-</h4>
+                            <p class="card-text">Estado Sistema</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-check-circle fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-info">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="card-title" id="totalPqrs">0</h4>
+                            <p class="card-text">PQRS Hoy</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-comments fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-warning">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="card-title" id="avgResponseTime">-</h4>
+                            <p class="card-text">Tiempo Promedio</p>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-clock fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs mb-4" id="adminTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="upload-tab" data-bs-toggle="tab" data-bs-target="#upload" type="button">
+                <i class="fas fa-upload me-2"></i>Subir Documentos
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="search-tab" data-bs-toggle="tab" data-bs-target="#search" type="button">
+                <i class="fas fa-search me-2"></i>Buscar Documentos
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="manage-tab" data-bs-toggle="tab" data-bs-target="#manage" type="button">
+                <i class="fas fa-database me-2"></i>Gestionar Base
+            </button>
+        </li>
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content" id="adminTabsContent">
+        <!-- Upload Tab -->
+        <div class="tab-pane fade show active" id="upload" role="tabpanel">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card shadow">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-upload me-2"></i>Subir Documento</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="uploadForm" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label class="form-label">Archivo *</label>
+                                    <input type="file" class="form-control" name="file" id="fileInput" 
+                                           accept=".txt,.pdf,.docx" required>
+                                    <div class="form-text">Formatos soportados: TXT, PDF, DOCX (máx. 10MB)</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Título del documento</label>
+                                    <input type="text" class="form-control" name="titulo" 
+                                           placeholder="Opcional - se usará el nombre del archivo si no se especifica">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Categoría *</label>
+                                    <select class="form-select" name="categoria" id="uploadCategoria" required>
+                                        <option value="">Seleccione categoría...</option>
+                                    </select>
+                                </div>
+
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-upload me-2"></i>Subir Documento
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card shadow">
+                        <div class="card-header bg-info text-white">
+                            <h6 class="mb-0"><i class="fas fa-info-circle me-2"></i>Instrucciones</h6>
+                        </div>
+                        <div class="card-body">
+                            <h6>Tipos de documentos recomendados:</h6>
+                            <ul class="small">
+                                <li>Manuales de procedimientos</li>
+                                <li>Normativas y reglamentos</li>
+                                <li>Guías técnicas</li>
+                                <li>FAQ sobre infraestructura</li>
+                                <li>Información de servicios</li>
+                            </ul>
+                            
+                            <div class="alert alert-warning small mt-3">
+                                <strong>Nota:</strong> Los documentos se procesan automáticamente 
+                                y se dividen en fragmentos para optimizar las búsquedas.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upload Results -->
+            <div id="uploadResults" class="mt-4" style="display: none;">
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle me-2"></i>
+                    <span id="uploadMessage"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Tab -->
+        <div class="tab-pane fade" id="search" role="tabpanel">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-search me-2"></i>Buscar en Base de Conocimiento</h5>
+                </div>
+                <div class="card-body">
+                    <form id="searchForm">
+                        <div class="row">
+                            <div class="col-md-8 mb-3">
+                                <label class="form-label">Consulta de búsqueda</label>
+                                <input type="text" class="form-control" name="query" 
+                                       placeholder="Buscar documentos..." required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Categoría</label>
+                                <select class="form-select" name="categoria" id="searchCategoria">
+                                    <option value="">Todas las categorías</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Límite de resultados</label>
+                                <select class="form-select" name="limit">
+                                    <option value="5">5 resultados</option>
+                                    <option value="10" selected>10 resultados</option>
+                                    <option value="20">20 resultados</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="fas fa-search me-2"></i>Buscar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Search Results -->
+            <div id="searchResults" class="mt-4" style="display: none;">
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white">
+                        <h6 class="mb-0"><i class="fas fa-list me-2"></i>Resultados de Búsqueda</h6>
+                    </div>
+                    <div class="card-body" id="searchResultsContent">
+                        <!-- Results will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manage Tab -->
+        <div class="tab-pane fade" id="manage" role="tabpanel">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card shadow">
+                        <div class="card-header bg-warning text-dark">
+                            <h6 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>Gestión de Base</h6>
+                        </div>
+                        <div class="card-body">
+                            <p>Utilice estas funciones con precaución:</p>
+                            
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-info" onclick="refreshStats()">
+                                    <i class="fas fa-sync me-2"></i>Actualizar Estadísticas
+                                </button>
+                                
+                                <button class="btn btn-outline-warning" onclick="exportData()">
+                                    <i class="fas fa-download me-2"></i>Exportar Datos
+                                </button>
+                                
+                                <hr>
+                                
+                                <button class="btn btn-danger" onclick="confirmClearDatabase()">
+                                    <i class="fas fa-trash me-2"></i>Limpiar Base de Datos
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card shadow">
+                        <div class="card-header bg-info text-white">
+                            <h6 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Estadísticas Detalladas</h6>
+                        </div>
+                        <div class="card-body">
+                            <div id="detailedStats">
+                                <p class="text-muted">Cargando estadísticas...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">Confirmar Acción</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>¿Está seguro de que desea limpiar toda la base de datos?</strong></p>
+                <p>Esta acción eliminará todos los documentos y no se puede deshacer.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" onclick="clearDatabase()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading Modal -->
+<div class="modal fade" id="adminLoadingModal" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center py-4">
+                <div class="spinner-border text-primary mb-3" role="status"></div>
+                <h5 id="loadingText">Procesando...</h5>
+                <p class="text-muted" id="loadingSubtext">Por favor espere</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/admin.js"></script>
+{% endblock %}
