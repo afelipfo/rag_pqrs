@@ -1,0 +1,322 @@
+/* Custom styles for PQRS RAG System */
+
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --info-color: #17a2b8;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Navigation */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.navbar-nav .nav-link {
+    transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    transform: translateY(-2px);
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+}
+
+.card-header {
+    border-radius: 10px 10px 0 0 !important;
+    font-weight: 600;
+}
+
+/* Buttons */
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Forms */
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-label {
+    font-weight: 600;
+    color: #495057;
+}
+
+/* Chat Messages */
+.chat-messages {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+}
+
+.user-message {
+    text-align: right;
+}
+
+.user-message .bg-primary {
+    background-color: var(--primary-color) !important;
+    color: white;
+    border-radius: 15px 15px 5px 15px;
+}
+
+.bot-message .bg-light {
+    background-color: #e9ecef !important;
+    border-radius: 15px 15px 15px 5px;
+}
+
+.message {
+    margin-bottom: 15px;
+}
+
+/* Stats Cards */
+.bg-primary { background-color: var(--primary-color) !important; }
+.bg-success { background-color: var(--success-color) !important; }
+.bg-info { background-color: var(--info-color) !important; }
+.bg-warning { background-color: var(--warning-color) !important; }
+
+/* Jumbotron */
+.jumbotron {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+}
+
+.jumbotron .text-primary {
+    color: white !important;
+}
+
+/* Tabs */
+.nav-tabs .nav-link {
+    border-radius: 10px 10px 0 0;
+    border: none;
+    background-color: #f8f9fa;
+    color: #6c757d;
+    margin-right: 5px;
+    transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+}
+
+.nav-tabs .nav-link:hover:not(.active) {
+    background-color: #e9ecef;
+    color: #495057;
+}
+
+/* Loading animations */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.loading {
+    animation: pulse 1.5s infinite;
+}
+
+/* Response section */
+#responseSection {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* File upload */
+.form-control[type="file"] {
+    padding: 0.5rem;
+}
+
+/* Alert improvements */
+.alert {
+    border-radius: 10px;
+    border: none;
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .display-5 {
+        font-size: 2rem;
+    }
+    
+    .lead {
+        font-size: 1rem;
+    }
+    
+    .card {
+        margin-bottom: 1rem;
+    }
+    
+    .chat-messages {
+        height: 300px !important;
+    }
+}
+
+/* Custom utilities */
+.shadow-custom {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.border-radius-lg {
+    border-radius: 15px;
+}
+
+.text-gradient {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Scroll improvements */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Search results */
+.search-result-item {
+    border-left: 4px solid var(--primary-color);
+    background-color: #f8f9fa;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 0 8px 8px 0;
+    transition: all 0.3s ease;
+}
+
+.search-result-item:hover {
+    background-color: #e9ecef;
+    transform: translateX(5px);
+}
+
+.similarity-badge {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+/* PQRS Response styling */
+.pqrs-response {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 15px 0;
+}
+
+.confidence-meter {
+    height: 10px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.confidence-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #dc3545 0%, #ffc107 50%, #28a745 100%);
+    transition: width 0.5s ease;
+}
+
+/* Category badges */
+.category-badge {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Admin panel specific */
+.admin-stat-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.admin-stat-card:hover {
+    transform: scale(1.05);
+}
+
+/* Documentation reference links */
+.doc-reference {
+    background-color: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    padding: 10px 15px;
+    margin: 5px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.doc-reference:hover {
+    background-color: #bbdefb;
+}
+
+/* Success animations */
+.success-animation {
+    animation: bounceIn 0.6s ease;
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.3); opacity: 0; }
+    50% { transform: scale(1.05); }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); opacity: 1; }
+}

@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+
+{% block title %}{{ app_name }} - Inicio{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="jumbotron bg-light p-5 rounded">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <h1 class="display-5 fw-bold text-primary">
+                            <i class="fas fa-comments me-3"></i>
+                            PQRS Infraestructura Medellín
+                        </h1>
+                        <p class="lead">
+                            Sistema inteligente para atender Peticiones, Quejas, Reclamos y Sugerencias 
+                            relacionadas con la infraestructura de Medellín. Nuestro asistente de IA 
+                            te brindará respuestas inmediatas basadas en información oficial.
+                        </p>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <i class="fas fa-robot fa-5x text-primary opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <ul class="nav nav-tabs mb-4" id="mainTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="pqrs-tab" data-bs-toggle="tab" data-bs-target="#pqrs" type="button">
+                <i class="fas fa-file-alt me-2"></i>Nueva PQRS
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="chat-tab" data-bs-toggle="tab" data-bs-target="#chat" type="button">
+                <i class="fas fa-comments me-2"></i>Chat Asistente
+            </button>
+        </li>
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content" id="mainTabsContent">
+        <!-- PQRS Form Tab -->
+        <div class="tab-pane fade show active" id="pqrs" role="tabpanel">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card shadow">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0"><i class="fas fa-edit me-2"></i>Formulario PQRS</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="pqrsForm">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Tipo de PQRS *</label>
+                                        <select class="form-select" name="tipo" required>
+                                            <option value="">Seleccione...</option>
+                                            <option value="peticion">Petición</option>
+                                            <option value="queja">Queja</option>
+                                            <option value="reclamo">Reclamo</option>
+                                            <option value="sugerencia">Sugerencia</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Categoría</label>
+                                        <select class="form-select" name="categoria" id="categoriaSelect">
+                                            <option value="">Detección automática</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Título *</label>
+                                    <input type="text" class="form-control" name="titulo" required 
+                                           placeholder="Resumen breve de su PQRS">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Descripción *</label>
+                                    <textarea class="form-control" name="descripcion" rows="4" required
+                                              placeholder="Describa detalladamente su solicitud..."></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Ubicación</label>
+                                    <input type="text" class="form-control" name="ubicacion" 
+                                           placeholder="Barrio, dirección o punto de referencia en Medellín">
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Nombre completo *</label>
+                                        <input type="text" class="form-control" name="ciudadano_nombre" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Email *</label>
+                                        <input type="email" class="form-control" name="ciudadano_email" required>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Teléfono</label>
+                                    <input type="tel" class="form-control" name="ciudadano_telefono" 
+                                           placeholder="Opcional">
+                                </div>
+
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+                                        <i class="fas fa-paper-plane me-2"></i>Enviar PQRS
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card shadow">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Información</h5>
+                        </div>
+                        <div class="card-body">
+                            <h6>¿Qué es una PQRS?</h6>
+                            <ul class="list-unstyled">
+                                <li><strong>Petición:</strong> Solicitud de información o actuación</li>
+                                <li><strong>Queja:</strong> Manifestación de inconformidad</li>
+                                <li><strong>Reclamo:</strong> Exigir solución a un problema</li>
+                                <li><strong>Sugerencia:</strong> Propuesta de mejora</li>
+                            </ul>
+                            
+                            <hr>
+                            
+                            <h6>Categorías principales:</h6>
+                            <ul class="small">
+                                <li>Vías y pavimentos</li>
+                                <li>Alumbrado público</li>
+                                <li>Espacios públicos</li>
+                                <li>Puentes y obras</li>
+                                <li>Drenajes</li>
+                                <li>Señalización</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Response Section -->
+            <div id="responseSection" class="mt-4" style="display: none;">
+                <div class="card shadow border-success">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="fas fa-check-circle me-2"></i>Respuesta del Sistema</h5>
+                    </div>
+                    <div class="card-body" id="responseContent">
+                        <!-- Response will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Tab -->
+        <div class="tab-pane fade" id="chat" role="tabpanel">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0"><i class="fas fa-robot me-2"></i>Asistente Virtual de Infraestructura</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="chatMessages" class="chat-messages mb-3" style="height: 400px; overflow-y: auto; border: 1px solid #ddd; padding: 15px; border-radius: 5px;">
+                                <div class="message bot-message">
+                                    <div class="d-flex mb-3">
+                                        <div class="me-2">
+                                            <i class="fas fa-robot text-primary"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <div class="bg-light p-3 rounded">
+                                                ¡Hola! Soy tu asistente virtual de la Secretaría de Infraestructura de Medellín. 
+                                                Puedo ayudarte con consultas sobre vías, alumbrado público, espacios públicos y más. 
+                                                ¿En qué puedo asistirte hoy?
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="chatInput" 
+                                       placeholder="Escribe tu pregunta sobre infraestructura...">
+                                <button class="btn btn-primary" type="button" id="sendChatBtn">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading Modal -->
+<div class="modal fade" id="loadingModal" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center py-4">
+                <div class="spinner-border text-primary mb-3" role="status"></div>
+                <h5>Procesando su solicitud...</h5>
+                <p class="text-muted">Nuestro sistema de IA está analizando su consulta.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/pqrs.js"></script>
+<script src="/static/js/chat.js"></script>
+{% endblock %}
