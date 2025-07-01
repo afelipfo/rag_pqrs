@@ -4,22 +4,57 @@ from typing import List, Dict, Any, Optional
 import chromadb
 from chromadb.config import Settings as ChromaSettings
 from sentence_transformers import SentenceTransformer
-from langchain.text_splitter import RecursiveCharacterTextSplitter
 from app.config import settings
 from app.models import DocumentoBase, CategoriaPQRS
 
 logger = logging.getLogger(__name__)
+
+class SimpleTextSplitter:
+    """Simple text splitter implementation"""
+    def __init__(self, chunk_size=1000, chunk_overlap=200):
+        self.chunk_size = chunk_size
+        self.chunk_overlap = chunk_overlap
+        self.separators = ["\n\n", "\n", ". ", "! ", "? ", " "]
+    
+    def split_text(self, text: str) -> List[str]:
+        """Split text into chunks"""
+        if len(text) <= self.chunk_size:
+            return [text]
+        
+        chunks = []
+        start = 0
+        
+        while start < len(text):
+            end = start + self.chunk_size
+            
+            if end >= len(text):
+                chunks.append(text[start:])
+                break
+            
+            # Find the best split point
+            chunk_end = end
+            for sep in self.separators:
+                sep_pos = text.rfind(sep, start, end)
+                if sep_pos != -1:
+                    chunk_end = sep_pos + len(sep)
+                    break
+            
+            chunks.append(text[start:chunk_end])
+            start = chunk_end - self.chunk_overlap
+            
+            if start <= 0:
+                start = chunk_end
+        
+        return chunks
 
 class VectorStoreService:
     def __init__(self):
         self.client = None
         self.collection = None
         self.embeddings_model = None
-        self.text_splitter = RecursiveCharacterTextSplitter(
+        self.text_splitter = SimpleTextSplitter(
             chunk_size=1000,
-            chunk_overlap=200,
-            length_function=len,
-            separators=["\n\n", "\n", ". ", "! ", "? ", " ", ""]
+            chunk_overlap=200
         )
         self._initialize()
     
